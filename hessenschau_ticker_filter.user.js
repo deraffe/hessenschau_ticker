@@ -3,9 +3,10 @@
 // @namespace   https://github.com/deraffe
 // @match       https://www.hessenschau.de/neu/index.html
 // @grant       none
-// @version     0.1
+// @version     0.2
 // @author      deraffe
 // @description Make the Hessenschau Ticker more readable and filter out uninteresting stuff
+// @downloadURL https://raw.githack.com/deraffe/hessenschau_ticker/master/hessenschau_ticker_filter.user.js
 // ==/UserScript==
 
 function q(s) {
