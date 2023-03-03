@@ -3,15 +3,22 @@
 // @namespace   https://github.com/deraffe
 // @match       https://www.hessenschau.de/neu/index.html
 // @grant       none
-// @version     0.2
+// @version     0.3
 // @author      deraffe
 // @description Make the Hessenschau Ticker more readable and filter out uninteresting stuff
 // @downloadURL https://raw.githack.com/deraffe/hessenschau_ticker/master/hessenschau_ticker_filter.user.js
 // ==/UserScript==
 
+// TODO get categories to filter from settings
+// see https://wiki.greasespot.net/GM.setValue
+var excludeCategories = ['Sport']
+
 function q(s) {
   return document.querySelector(s)
 }
+
+
+// old design
 
 // transform first entry into regular list item
 if (q('.c-clusterTeaser__firstEntry')) {
@@ -25,10 +32,6 @@ if (q('.c-clusterTeaser__firstEntry')) {
   firstEntry.remove()
 }
 
-// TODO get categories to filter from settings
-// see https://wiki.greasespot.net/GM.setValue
-var excludeCategories = ['Sport']
-
 // filter entries
 if (q('.c-clusterTeaser__list')) {
   var list = q('.c-clusterTeaser__list')
@@ -39,6 +42,22 @@ if (q('.c-clusterTeaser__list')) {
     if (excludeCategories.indexOf(category) > -1) {
       console.debug('Removing item')
       item.remove();
+    }
+  }
+}
+
+
+// new design
+
+// filter entries
+if (q('div.flex > ul.mx-5')) {
+  var list = q('div.flex > ul.mx-5')
+  for (let item of Array.from(list.children)) {
+    var category = item.querySelector('p > span').firstChild.textContent.trim()
+    console.debug(item, category)
+    if (excludeCategories.indexOf(category) > -1) {
+      console.debug('Removing item')
+      item.remove()
     }
   }
 }
